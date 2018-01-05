@@ -45,7 +45,7 @@
                     <!-- MainClass in mainfest make a executable jar -->
                     <archive>
                         <manifest>
-                            <mainClass>com.amazonaws.sample.cognitoui.MainForm</mainClass>
+                            <mainClass>com.amazonaws.sample.cognito.ui.MainForm</mainClass>
                         </manifest>
                     </archive>
 

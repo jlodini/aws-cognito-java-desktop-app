@@ -1,4 +1,6 @@
-package com.amazonaws.sample.cognitoui;
+package com.amazonaws.sample.cognito.ui;
+
+import com.amazonaws.sample.cognito.service.CognitoHelper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,12 +11,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 public class ConfirmUser {
     //Create variable
 
 
-     static boolean display(String title, String message, String username) {
-        boolean answer=false;
+    static boolean display(String title, String message, String username) {
+        boolean answer = false;
         CognitoHelper helper = new CognitoHelper();
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -22,7 +25,7 @@ public class ConfirmUser {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Scene scene = new Scene(grid,400, 500);
+        Scene scene = new Scene(grid, 400, 500);
 
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -45,26 +48,26 @@ public class ConfirmUser {
         //       suBtn.setAlignment(Pos.BOTTOM_LEFT);
         suBtn.getChildren().add(signUpButton);
         suBtn.setMaxWidth(190);
-        grid.add(suBtn,0,6);
+        grid.add(suBtn, 0, 6);
         // Create cancel button
         Button cancelButton = new Button("Cancel");
         HBox clBtn = new HBox(10);
         clBtn.setAlignment(Pos.BOTTOM_RIGHT);
         clBtn.getChildren().add(cancelButton);
         clBtn.setMaxWidth(190);
-        grid.add(clBtn,1,6);
+        grid.add(clBtn, 1, 6);
         Label otp_message = new Label();
 
         grid.add(otp_message, 0, 7, 2, 1);
+
         //Clicking will set answer and close window
         signUpButton.setOnAction(e -> {
-            boolean success=helper.VerifyAccessCode(username, otpcode.getText());
-            if (success){
+            boolean success = helper.VerifyAccessCode(username, otpcode.getText());
+
+            if (success) {
                 System.out.println("OTP validation is successful");
                 otp_message.setText("OTP validation is successful");
-
-            }
-            else {
+            } else {
                 System.out.println("OTP validation has failed");
                 otp_message.setText("OTP validation has failed/Re-enter OTP code");
             }

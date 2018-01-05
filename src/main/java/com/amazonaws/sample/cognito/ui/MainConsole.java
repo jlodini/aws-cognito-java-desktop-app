@@ -1,4 +1,4 @@
-package com.amazonaws.sample.cognitoui;
+package com.amazonaws.sample.cognito.ui;
 
 /*
  *  Copyright 2013-2016 Amazon.com,
@@ -19,6 +19,8 @@ package com.amazonaws.sample.cognitoui;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicSessionCredentials;
+import com.amazonaws.sample.cognito.service.CognitoHelper;
+import com.amazonaws.sample.cognito.service.CognitoJWTParser;
 import com.amazonaws.services.cognitoidentity.model.Credentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
@@ -36,14 +38,17 @@ public class MainConsole {
                 "2. Authenticate a user and display its buckets\n" +
                 "3. Reset password" +
                 "");
+
         int choice = 0;
         Scanner scanner = new Scanner(System.in);
+
         try {
             choice = Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException exp) {
             System.out.println("Please enter a choice (1, 2, 3).");
             System.exit(1);
         }
+
         switch (choice) {
             case 1:
                 CreateUser(helper);
@@ -80,6 +85,7 @@ public class MainConsole {
         String phonenumber = scanner.nextLine();
 
         boolean success = helper.SignUpUser(username, password, email, phonenumber);
+
         if (success) {
             System.out.println("User added.");
             System.out.println("Enter your validation code on phone: ");
@@ -107,6 +113,7 @@ public class MainConsole {
         String password = scanner.nextLine();
 
         String result = helper.ValidateUser(username, password);
+
         if (result != null) {
             System.out.println("User is authenticated: " + result);
         } else {
@@ -163,9 +170,11 @@ public class MainConsole {
      */
     private static void ListBuckets(Credentials credentials) {
         BasicSessionCredentials awsCreds = new BasicSessionCredentials(credentials.getAccessKeyId(), credentials.getSecretKey(), credentials.getSessionToken());
+
         AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
                 .build();
+
         for (Bucket bucket : s3Client.listBuckets()) {
             System.out.println(" - " + bucket.getName());
         }

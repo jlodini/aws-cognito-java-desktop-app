@@ -1,4 +1,4 @@
-package com.amazonaws.sample.cognitoui;
+package com.amazonaws.sample.cognito.ui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 class BucketListForm {
 
-     static void display(String title, String message) {
+    static void display(String title, String message) {
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -28,21 +28,22 @@ class BucketListForm {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setMinWidth(250);
-        TextArea scenetitle = new TextArea();
 
+        TextArea scenetitle = new TextArea();
         scenetitle.setText(message);
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 12));
         grid.add(scenetitle, 0, 0, 2, 1);
+
         Button cancelButton = new Button("OK");
         HBox clBtn = new HBox(10);
         clBtn.setAlignment(Pos.BOTTOM_RIGHT);
         clBtn.getChildren().add(cancelButton);
         clBtn.setMaxWidth(190);
         grid.add(clBtn, 1, 6);
+
         cancelButton.setOnAction(e -> {
             window.close();
         });
-
 
         window.setScene(scene);
         window.showAndWait();

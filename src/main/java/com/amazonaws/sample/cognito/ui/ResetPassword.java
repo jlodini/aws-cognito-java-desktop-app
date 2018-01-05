@@ -1,5 +1,6 @@
-package com.amazonaws.sample.cognitoui;
+package com.amazonaws.sample.cognito.ui;
 
+import com.amazonaws.sample.cognito.service.CognitoHelper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 public class ResetPassword {
     static boolean answer;
 
@@ -23,7 +25,7 @@ public class ResetPassword {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Scene scene = new Scene(grid,400, 500);
+        Scene scene = new Scene(grid, 400, 500);
 
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -55,21 +57,20 @@ public class ResetPassword {
         grid.add(txtpassword, 1, 3);
 
 
-
         //Create signup button
         Button resetPassword = new Button("Reset Password");
         HBox suBtn = new HBox(10);
         //       suBtn.setAlignment(Pos.BOTTOM_LEFT);
         suBtn.getChildren().add(resetPassword);
         suBtn.setMaxWidth(190);
-        grid.add(suBtn,0,6);
+        grid.add(suBtn, 0, 6);
         // Create cancel button
         Button cancelButton = new Button("Cancel");
         HBox clBtn = new HBox(10);
         clBtn.setAlignment(Pos.BOTTOM_RIGHT);
         clBtn.getChildren().add(cancelButton);
         suBtn.setMaxWidth(190);
-        grid.add(clBtn,1,6 );
+        grid.add(clBtn, 1, 6);
         Label lblmessage = new Label();
 
         grid.add(lblmessage, 0, 7, 2, 1);
@@ -79,10 +80,9 @@ public class ResetPassword {
             try {
                 helper.UpdatePassword(txtusername.getText(), txtpassword.getText(), txtpincode.getText());
                 lblmessage.setText("Password reset successfully!");
-            }catch (Exception exp)
-            {
+            } catch (Exception exp) {
                 System.out.println(exp);
-                answer=false;
+                answer = false;
 
             }
 

@@ -1,4 +1,4 @@
-package com.amazonaws.sample.cognitoui;
+package com.amazonaws.sample.cognito.service;
 
 /*
  *  Copyright 2013-2016 Amazon.com,
@@ -21,6 +21,7 @@ package com.amazonaws.sample.cognitoui;
 import java.util.Base64;
 import java.util.Base64.Encoder;
 import java.util.Base64.Decoder;
+
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -44,7 +45,7 @@ public class CognitoJWTParser {
     static JSONObject getHeader(String jwt) {
         try {
             validateJWT(jwt);
-            Base64.Decoder dec= Base64.getDecoder();
+            Base64.Decoder dec = Base64.getDecoder();
             final byte[] sectionDecoded = dec.decode(jwt.split("\\.")[HEADER]);
             final String jwtSection = new String(sectionDecoded, "UTF-8");
             return new JSONObject(jwtSection);
@@ -61,10 +62,10 @@ public class CognitoJWTParser {
      * @param jwt REQUIRED: valid JSON Web Token as String.
      * @return payload as a JSONObject.
      */
-    static JSONObject getPayload(String jwt) {
+    public static JSONObject getPayload(String jwt) {
         try {
             validateJWT(jwt);
-            Base64.Decoder dec= Base64.getDecoder();
+            Base64.Decoder dec = Base64.getDecoder();
             final String payload = jwt.split("\\.")[PAYLOAD];
             final byte[] sectionDecoded = dec.decode(payload);
             final String jwtSection = new String(sectionDecoded, "UTF-8");
@@ -85,7 +86,7 @@ public class CognitoJWTParser {
     public static String getSignature(String jwt) {
         try {
             validateJWT(jwt);
-            Base64.Decoder dec= Base64.getDecoder();
+            Base64.Decoder dec = Base64.getDecoder();
             final byte[] sectionDecoded = dec.decode(jwt.split("\\.")[SIGNATURE]);
             return new String(sectionDecoded, "UTF-8");
         } catch (final Exception e) {
@@ -120,9 +121,10 @@ public class CognitoJWTParser {
      *
      * @param jwt REQUIRED: The JWT as a {@link String}.
      */
-    static void validateJWT(String jwt) {
+    private static void validateJWT(String jwt) {
         // Check if the the JWT has the three parts
         final String[] jwtParts = jwt.split("\\.");
+
         if (jwtParts.length != JWT_PARTS) {
             throw new InvalidParameterException("not a JSON Web Token");
         }

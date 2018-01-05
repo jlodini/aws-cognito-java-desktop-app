@@ -1,4 +1,4 @@
-package com.amazonaws.sample.cognitoui;
+package com.amazonaws.sample.cognito.service;
 
 /*
  *  Copyright 2013-2016 Amazon.com,
@@ -18,15 +18,10 @@ package com.amazonaws.sample.cognitoui;
  */
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.AnonymousAWSCredentials;
 import com.amazonaws.auth.BasicSessionCredentials;
 import com.amazonaws.regions.Regions;
-import com.amazonaws.services.cognitoidentity.AmazonCognitoIdentity;
-import com.amazonaws.services.cognitoidentity.AmazonCognitoIdentityClientBuilder;
+import com.amazonaws.sample.cognito.util.Constants;
 import com.amazonaws.services.cognitoidentity.model.*;
-import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
-import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder;
-import com.amazonaws.services.cognitoidp.model.*;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.Bucket;
@@ -38,13 +33,11 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The CognitoHelper class abstracts the functionality of connecting to the Cognito user pool and Federated Identities.
  */
-class CognitoHelper {
+public class CognitoHelper {
     private String POOL_ID;
     private String CLIENTAPP_ID;
     private String FED_POOL_ID;
@@ -82,13 +75,13 @@ class CognitoHelper {
         }
     }
 
-    String GetHostedSignInURL() {
+    public String GetHostedSignInURL() {
         String customurl = "https://%s.auth.%s.amazoncognito.com/login?response_type=code&client_id=%s&redirect_uri=%s";
 
         return String.format(customurl, CUSTOMDOMAIN, REGION, CLIENTAPP_ID, Constants.REDIRECT_URL);
     }
 
-    String GetTokenURL() {
+    public String GetTokenURL() {
         String customurl = "https://%s.auth.%s.amazoncognito.com/oauth2/token";
 
         return String.format(customurl, CUSTOMDOMAIN, REGION);
@@ -103,7 +96,7 @@ class CognitoHelper {
      * @param phonenumber phone number to sign up.
      * @return whether the call was successful or not.
      */
-    boolean SignUpUser(String username, String password, String email, String phonenumber) {
+    public boolean SignUpUser(String username, String password, String email, String phonenumber) {
 
         return true;
     }
@@ -115,7 +108,7 @@ class CognitoHelper {
      * @param code     Verification code delivered to the user.
      * @return if the verification is successful.
      */
-    boolean VerifyAccessCode(String username, String code) {
+    public boolean VerifyAccessCode(String username, String code) {
 
         return true;
     }
@@ -127,7 +120,7 @@ class CognitoHelper {
      * @param password represents the password in the cognito user pool
      * @return returns the JWT token after the validation
      */
-    String ValidateUser(String username, String password) {
+    public String ValidateUser(String username, String password) {
 
         return "";
     }
@@ -139,7 +132,7 @@ class CognitoHelper {
      * @param id         the username for the login map.
      * @return returns the credentials based on the access token returned from the user pool.
      */
-    Credentials GetCredentials(String idprovider, String id) {
+    public Credentials GetCredentials(String idprovider, String id) {
 
         return null;
     }
@@ -150,7 +143,7 @@ class CognitoHelper {
      * @param accesscode access code
      * @return returns the credentials based on the access token returned from the user pool.
      */
-    Credentials GetCredentials(String accesscode) {
+    public Credentials GetCredentials(String accesscode) {
         Credentials credentials = null;
 
         try {
@@ -182,7 +175,7 @@ class CognitoHelper {
      * @param username user to be reset
      * @return returns code delivery details
      */
-    String ResetPassword(String username) {
+    public String ResetPassword(String username) {
 
         return null;
     }
@@ -191,11 +184,11 @@ class CognitoHelper {
      * complete reset password procedure by confirming the reset code
      *
      * @param username user to be reset
-     * @param newpw new password of aforementioned user
-     * @param code code sent for password reset from the ResetPassword() method above
+     * @param newpw    new password of aforementioned user
+     * @param code     code sent for password reset from the ResetPassword() method above
      * @return returns code delivery details
      */
-    String UpdatePassword(String username, String newpw, String code) {
+    public String UpdatePassword(String username, String newpw, String code) {
 
         return null;
     }
@@ -207,12 +200,15 @@ class CognitoHelper {
      * @param credentials Credentials to be used for displaying buckets
      * @return
      */
-    String ListBucketsForUser(Credentials credentials) {
+    public String ListBucketsForUser(Credentials credentials) {
+
         BasicSessionCredentials awsCreds = new BasicSessionCredentials(credentials.getAccessKeyId(), credentials.getSecretKey(), credentials.getSessionToken());
+
         AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
                 .withRegion(Regions.fromName(REGION))
                 .build();
+
         StringBuilder bucketslist = new StringBuilder();
 
         bucketslist.append("===========Credentials Details.=========== \n");

@@ -1,6 +1,6 @@
-package com.amazonaws.sample.cognitoui;
+package com.amazonaws.sample.cognito.ui;
 
-
+import com.amazonaws.sample.cognito.service.CognitoHelper;
 import com.amazonaws.services.cognitoidentity.model.Credentials;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,7 +14,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;
-
 
 public class HostedUI {
 
@@ -48,25 +47,28 @@ public class HostedUI {
         });
         clBtn.getChildren().add(cancelButton);
 
-
         Button credbutton = new Button("Get Credentials");
         credbutton.setOnAction(e -> {
 
             System.out.println(webEngine.getLocation());
+
             try {
                 URL signinURL = new URL(webEngine.getLocation());
                 String code = signinURL.getQuery().split("=")[1];
+
                 System.out.println(code);
+
                 CognitoHelper helper = new CognitoHelper();
                 Credentials cred = helper.GetCredentials(code);
+
                 MainForm.ShowUserBuckets(cred);
 
             } catch (Exception exp) {
                 System.out.println(exp);
-
             }
             //window.close();
         });
+
         clBtn.getChildren().add(credbutton);
         grid.add(clBtn, 1, 6);
 

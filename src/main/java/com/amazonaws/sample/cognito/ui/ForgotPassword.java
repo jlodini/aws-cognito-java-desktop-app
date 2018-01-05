@@ -1,4 +1,6 @@
-package com.amazonaws.sample.cognitoui;
+package com.amazonaws.sample.cognito.ui;
+
+import com.amazonaws.sample.cognito.service.CognitoHelper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,19 +11,22 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 public class ForgotPassword {
     //Create variable
     static boolean answer;
 
     public static boolean display(String title, String message) {
+
         CognitoHelper helper = new CognitoHelper();
+
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Scene scene = new Scene(grid,400, 500);
+        Scene scene = new Scene(grid, 400, 500);
 
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -33,6 +38,7 @@ public class ForgotPassword {
         scenetitle.setText(message);
 
         grid.add(scenetitle, 0, 0, 2, 1);
+
         // email field
         Label email_label = new Label("Username:");
         grid.add(email_label, 0, 1);
@@ -45,17 +51,14 @@ public class ForgotPassword {
         suBtn.setAlignment(Pos.CENTER);
         suBtn.getChildren().add(passwordResetLinkButton);
         suBtn.setMaxWidth(300);
-        grid.add(suBtn,0,6);
-
+        grid.add(suBtn, 0, 6);
 
         Button codeButton = new Button("Have reset code?");
         HBox codeBtn = new HBox(10);
         codeBtn.setAlignment(Pos.CENTER);
         codeBtn.getChildren().add(codeButton);
         codeBtn.setMaxWidth(300);
-        grid.add(codeBtn,1,6);
-
-
+        grid.add(codeBtn, 1, 6);
 
         // Create cancel button
         Button cancelButton = new Button("Cancel");
@@ -63,38 +66,39 @@ public class ForgotPassword {
         clBtn.setAlignment(Pos.CENTER);
         clBtn.getChildren().add(cancelButton);
         clBtn.setMaxWidth(300);
-        grid.add(clBtn,0,7, 2,1);
+        grid.add(clBtn, 0, 7, 2, 1);
 
         //Clicking will set answer and close window
         passwordResetLinkButton.setOnAction(e -> {
 
             System.out.println(txtusername.getText());
             helper.ResetPassword(txtusername.getText());
-            boolean answer = ResetPassword.display("re:Invent 2017 - Cognito Workshop", "Reset Password",txtusername.getText());
+
+            boolean answer = ResetPassword.display("re:Invent 2017 - Cognito Workshop", "Reset Password", txtusername.getText());
+
             if (answer) {
                 System.out.println("Password reset successful");
-            }else
-            {
+            } else {
                 System.out.println("Password reset failed");
             }
 
         });
+
         cancelButton.setOnAction(e -> {
             answer = false;
             window.close();
         });
+
         codeButton.setOnAction(e -> {
-            boolean answer = ResetPassword.display("re:Invent 2017 - Cognito Workshop", "Reset Password",txtusername.getText());
+            boolean answer = ResetPassword.display("re:Invent 2017 - Cognito Workshop", "Reset Password", txtusername.getText());
+
             if (answer) {
                 System.out.println("Password reset successful");
-            }else
-            {
+            } else {
                 System.out.println("Password reset failed");
             }
 
         });
-
-
 
         window.setScene(scene);
         window.showAndWait();
@@ -102,5 +106,4 @@ public class ForgotPassword {
         //Make sure to return answer
         return answer;
     }
-
 }
