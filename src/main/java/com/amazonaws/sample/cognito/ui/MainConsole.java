@@ -30,9 +30,9 @@ import org.json.JSONObject;
 import java.util.Scanner;
 
 public class MainConsole {
+
     public static void main(String[] args) {
         CognitoHelper helper = new CognitoHelper();
-
         System.out.println("Welcome to the Cognito Sample. Please enter your choice (1 or 2).\n" +
                 "1. Add a new user\n" +
                 "2. Authenticate a user and display its buckets\n" +
