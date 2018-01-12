@@ -233,8 +233,8 @@ class AuthenticationHelper {
         InitiateAuthRequest initiateAuthRequest = new InitiateAuthRequest();
         initiateAuthRequest.setAuthFlow(AuthFlowType.USER_SRP_AUTH);
         initiateAuthRequest.setClientId(this.clientId);
-        //Only to be used if the pool contains the secret key.
-        //initiateAuthRequest.addAuthParametersEntry("SECRET_HASH", this.calculateSecretHash(this.clientId,this.secretKey,username));
+//        Only to be used if the pool contains the secret key.
+        initiateAuthRequest.addAuthParametersEntry("SECRET_HASH", this.calculateSecretHash(this.clientId,this.secretKey,username));
         initiateAuthRequest.addAuthParametersEntry("USERNAME", username);
         initiateAuthRequest.addAuthParametersEntry("SRP_A", this.getA().toString(16));
         return initiateAuthRequest;
@@ -304,28 +304,39 @@ class AuthenticationHelper {
     }
 
     /**
-     * Calculate the secret hash to be sent along with the authentication request.
+     * Generates secret hash. Uses HMAC SHA256.
      *
-     * @param userPoolClientId     : The client id of the app.
-     * @param userPoolClientSecret : The secret for the userpool client id.
-     * @param userName             : The username of the user trying to authenticate.
-     * @return Calculated secret hash.
+     * @param userId            REQUIRED: User ID
+     * @param clientId          REQUIRED: Client ID
+     * @param clientSecret      REQUIRED: Client secret
+     * @return  secret hash as a {@code String}, {@code null } if {@code clinetSecret if null}
      */
-    private String calculateSecretHash(String userPoolClientId, String userPoolClientSecret, String userName) {
+    public static String calculateSecretHash(final String userId, final String clientId, final String clientSecret) {
+        final String algorithm = "HmacSHA256";
 
-        final String HMAC_SHA256_ALGORITHM = "HmacSHA256";
+        if (userId == null) {
+            throw new SecurityException("user ID cannot be null");
+        }
 
-        SecretKeySpec signingKey = new SecretKeySpec(
-                userPoolClientSecret.getBytes(StandardCharsets.UTF_8),
-                HMAC_SHA256_ALGORITHM);
+        if (clientId == null) {
+            throw new SecurityException("client ID cannot be null");
+        }
+
+        // Return null as secret hash if clientSecret is null.
+        if (clientSecret == null) {
+            return null;
+        }
+
+        final SecretKeySpec signingKey = new SecretKeySpec(clientSecret.getBytes(StringUtils.UTF8), algorithm);
+
         try {
-            Mac mac = Mac.getInstance(HMAC_SHA256_ALGORITHM);
+            final Mac mac = Mac.getInstance(algorithm);
             mac.init(signingKey);
-            mac.update(userName.getBytes(StandardCharsets.UTF_8));
-            byte[] rawHmac = mac.doFinal(userPoolClientId.getBytes(StandardCharsets.UTF_8));
-            return java.util.Base64.getEncoder().encodeToString(rawHmac);
-        } catch (Exception e) {
-            throw new RuntimeException("Error while calculating ");
+            mac.update(userId.getBytes(StringUtils.UTF8));
+            final byte[] rawHmac = mac.doFinal(clientId.getBytes(StringUtils.UTF8));
+            return  new String(Base64.encode(rawHmac));
+        } catch (final Exception e) {
+            throw new SecurityException("errors in HMAC calculation");
         }
     }
 

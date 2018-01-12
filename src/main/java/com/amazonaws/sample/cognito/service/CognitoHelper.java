@@ -47,6 +47,7 @@ public class CognitoHelper {
     private String FED_POOL_ID;
     private String CUSTOMDOMAIN;
     private String REGION;
+    private String SECRET;
 
     public CognitoHelper() {
 
@@ -65,6 +66,7 @@ public class CognitoHelper {
             FED_POOL_ID = prop.getProperty("FED_POOL_ID");
             CUSTOMDOMAIN = prop.getProperty("CUSTOMDOMAIN");
             REGION = prop.getProperty("REGION");
+            SECRET = prop.getProperty("SECRET");
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -178,7 +180,7 @@ public class CognitoHelper {
      * @return returns the JWT token after the validation
      */
     public String ValidateUser(String username, String password) {
-        AuthenticationHelper helper = new AuthenticationHelper(POOL_ID, CLIENTAPP_ID, "");
+        AuthenticationHelper helper = new AuthenticationHelper(POOL_ID, CLIENTAPP_ID, SECRET);
         return helper.PerformSRPAuthentication(username, password);
     }
 
