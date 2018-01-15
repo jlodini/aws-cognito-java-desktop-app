@@ -1,6 +1,6 @@
 package com.amazonaws.sample.cognito.ui;
 
-import com.amazonaws.sample.cognito.service.CognitoHelper;
+import com.amazonaws.sample.cognito.service.CognitoUser;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,7 +18,7 @@ public class ConfirmUser {
 
     static boolean display(String title, String message, String username) {
         boolean answer = false;
-        CognitoHelper helper = new CognitoHelper();
+        CognitoUser helper = new CognitoUser();
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);

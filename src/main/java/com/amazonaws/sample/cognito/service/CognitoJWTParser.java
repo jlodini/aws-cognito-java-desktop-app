@@ -18,14 +18,11 @@ package com.amazonaws.sample.cognito.service;
  */
 
 
-import java.util.Base64;
-import java.util.Base64.Encoder;
-import java.util.Base64.Decoder;
-
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidParameterException;
+import java.util.Base64;
 
 /**
  * Utility class for all operations on JWT.

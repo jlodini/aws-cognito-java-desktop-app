@@ -19,7 +19,7 @@ package com.amazonaws.sample.cognito.ui;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicSessionCredentials;
-import com.amazonaws.sample.cognito.service.CognitoHelper;
+import com.amazonaws.sample.cognito.service.CognitoUser;
 import com.amazonaws.sample.cognito.service.CognitoJWTParser;
 import com.amazonaws.services.cognitoidentity.model.Credentials;
 import com.amazonaws.services.s3.AmazonS3;
@@ -32,7 +32,7 @@ import java.util.Scanner;
 public class MainConsole {
 
     public static void main(String[] args) {
-        CognitoHelper helper = new CognitoHelper();
+        CognitoUser helper = new CognitoUser();
         System.out.println("Welcome to the Cognito Sample. Please enter your choice (1 or 2).\n" +
                 "1. Add a new user\n" +
                 "2. Authenticate a user and display its buckets\n" +
@@ -67,9 +67,9 @@ public class MainConsole {
     /**
      * This method creates the users.
      *
-     * @param helper CognitoHelper class for performing validations
+     * @param helper CognitoUser class for performing validations
      */
-    private static void CreateUser(CognitoHelper helper) {
+    private static void CreateUser(CognitoUser helper) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Please enter a username: ");
@@ -101,9 +101,9 @@ public class MainConsole {
     /**
      * This method validates the user by entering username and password
      *
-     * @param helper CognitoHelper class for performing validations
+     * @param helper CognitoUser class for performing validations
      */
-    private static void ValidateUser(CognitoHelper helper) {
+    private static void ValidateUser(CognitoUser helper) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Please enter the username: ");
@@ -112,7 +112,12 @@ public class MainConsole {
         System.out.println("Please enter the password: ");
         String password = scanner.nextLine();
 
-        String result = helper.ValidateUser(username, password);
+        String result = null;
+        try {
+            result = helper.ValidateUser(username, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         if (result != null) {
             System.out.println("User is authenticated: " + result);
@@ -131,9 +136,9 @@ public class MainConsole {
     /**
      * This method allows a user to reset his/her password
      *
-     * @param helper CognitoHelper class for performing validations
+     * @param helper CognitoUser class for performing validations
      */
-    private static void ResetPassword(CognitoHelper helper) {
+    private static void ResetPassword(CognitoUser helper) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Please enter the username: ");

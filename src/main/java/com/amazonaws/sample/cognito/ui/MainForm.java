@@ -1,6 +1,6 @@
 package com.amazonaws.sample.cognito.ui;
 
-import com.amazonaws.sample.cognito.service.CognitoHelper;
+import com.amazonaws.sample.cognito.service.CognitoUser;
 import com.amazonaws.sample.cognito.service.CognitoJWTParser;
 import com.amazonaws.services.cognitoidentity.model.Credentials;
 import javafx.application.Application;
@@ -27,7 +27,7 @@ public class MainForm extends Application {
 
     static void ShowUserBuckets(Credentials credentails) {
 
-        CognitoHelper helper = new CognitoHelper();
+        CognitoUser helper = new CognitoUser();
         String message = helper.ListBucketsForUser(credentails);
 
         BucketListForm.display("Cognito -  Returned Credentials", message);
@@ -37,7 +37,7 @@ public class MainForm extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        CognitoHelper helper = new CognitoHelper();
+        CognitoUser helper = new CognitoUser();
         Stage window;
         Button signup_button;
         Button signin_button;
@@ -82,7 +82,12 @@ public class MainForm extends Application {
         Label auth_message = new Label("");
 
         signin_button.setOnAction((ActionEvent e) -> {
-            String result = helper.ValidateUser(Username.getText(), Password.getText());
+            String result = null;
+            try {
+                result = helper.ValidateUser(Username.getText(), Password.getText());
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
             if (result != null) {
                 System.out.println("User is authenticated:" + result);
                 auth_message.setText("User is authenticated");

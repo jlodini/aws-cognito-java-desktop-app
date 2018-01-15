@@ -1,6 +1,6 @@
 package com.amazonaws.sample.cognito.ui;
 
-import com.amazonaws.sample.cognito.service.CognitoHelper;
+import com.amazonaws.sample.cognito.service.CognitoUser;
 import com.amazonaws.services.cognitoidentity.model.Credentials;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -58,7 +58,7 @@ public class HostedUI {
 
                 System.out.println(code);
 
-                CognitoHelper helper = new CognitoHelper();
+                CognitoUser helper = new CognitoUser();
                 Credentials cred = helper.GetCredentials(code);
 
                 MainForm.ShowUserBuckets(cred);
