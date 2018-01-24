@@ -1,23 +1,5 @@
-/*
- * Copyright 2013-2017 Amazon.com, Inc. or its affiliates.
- * All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+package com.amazonaws.sample.cognito.util;
 
-package com.amazonaws.sample.cognito.service;
-
-import com.amazonaws.sample.cognito.util.Constants;
 import org.json.JSONObject;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -38,7 +20,7 @@ import java.util.Map;
 
 public final class AuthHttpClient {
 
-    String httpPost(final URL uri, final Map<String, String> bodyParams) throws Exception {
+    public String httpPost(final URL uri, final Map<String, String> bodyParams) throws Exception {
         if (uri == null || bodyParams == null || bodyParams.size() < 1) {
             throw new Exception("Invalid http request parameters");
         }
