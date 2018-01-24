@@ -1,4 +1,4 @@
-# aws-cognito-java-desktop-app
+# Cognito Java POC
 
 This is a sample application which provides a basic implementation of the use of cognito user
 pools using the java SDK.
@@ -10,4 +10,4 @@ This application supports
 4. Getting the AWS credential for the user and displaying the user resource based on the
 AWS credentails. 
 
-To understand the application, please follow the steps at https://sid343.reinvent-workshop.com/
+Example at https://sid343.reinvent-workshop.com/

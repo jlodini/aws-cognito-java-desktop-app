@@ -44,7 +44,7 @@ public class MainForm extends Application {
         Button forgot_pswd_button;
 
         window = primaryStage;
-        window.setTitle("re:Invent 2017 - Cognito Workshop");
+        window.setTitle("Cognito POC");
         VBox vb = new VBox();
         vb.setPadding(new Insets(10, 50, 50, 50));
         vb.setSpacing(10);
@@ -67,14 +67,14 @@ public class MainForm extends Application {
         vb.setPadding(new Insets(10, 50, 50, 50));
         vb.setSpacing(10);
         Label lbl = new Label("");
-        Image image = new Image(getClass().getClassLoader().getResourceAsStream("reinvent.png"));
+        Image image = new Image(getClass().getClassLoader().getResourceAsStream("ryanair.png"));
         lbl.setGraphic(new ImageView(image));
         lbl.setTextFill(Color.web("#0076a3"));
         lbl.setFont(Font.font("Amble CN", FontWeight.BOLD, 24));
         vb.getChildren().add(lbl);
 
         signup_button.setOnAction(e -> {
-            boolean result = ConfirmBox.display("re:Invent 2017 - Cognito Workshop", "Sign-Up Form");
+            boolean result = ConfirmBox.display("Cognito Poc", "Sign-Up Form");
             System.out.println(result);
         });
 
@@ -105,7 +105,7 @@ public class MainForm extends Application {
 
         forgot_pswd_button = new Button("Forgot Password?");
         forgot_pswd_button.setOnAction(e -> {
-            boolean result = ForgotPassword.display("re:Invent 2017 - Cognito Workshop", "Forgot password");
+            boolean result = ForgotPassword.display("Cognito POC", "Forgot password");
             System.out.println(result);
         });
 
@@ -120,7 +120,7 @@ public class MainForm extends Application {
 //            String s = h.getTooltip().getText();
 //            this.getHostServices().showDocument(s);
 //            event.consume();
-            HostedUI.display("re:Invent 2017 - Cognito Workshop", helper.GetHostedSignInURL());
+            HostedUI.display("Cognito POC", helper.GetHostedSignInURL());
 
         });
 
