@@ -68,7 +68,7 @@ public class ConfirmBox {
         grid.add(email, 1, 4);
 
         // Phone no. field
-        Label phno_label = new Label("Mobile Phone:");
+        Label phno_label = new Label("Iata Code:");
         grid.add(phno_label, 0, 5);
         TextField phno = new TextField();
         grid.add(phno, 1, 5);

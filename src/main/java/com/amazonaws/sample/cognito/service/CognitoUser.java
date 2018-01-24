@@ -1,26 +1,13 @@
 package com.amazonaws.sample.cognito.service;
 
-/*
- *  Copyright 2013-2016 Amazon.com,
- *  Inc. or its affiliates. All Rights Reserved.
- *
- *  Licensed under the Amazon Software License (the "License").
- *  You may not use this file except in compliance with the
- *  License. A copy of the License is located at
- *
- *      http://aws.amazon.com/asl/
- *
- *  or in the "license" file accompanying this file. This file is
- *  distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- *  CONDITIONS OF ANY KIND, express or implied. See the License
- *  for the specific language governing permissions and
- *  limitations under the License.
- */
-
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.AnonymousAWSCredentials;
 import com.amazonaws.auth.BasicSessionCredentials;
 import com.amazonaws.regions.Regions;
+import com.amazonaws.sample.cognito.util.AuthHttpClient;
+import com.amazonaws.sample.cognito.util.AuthenticationHelper;
+import com.amazonaws.sample.cognito.util.CognitoJWTParser;
+import com.amazonaws.sample.cognito.util.CognitoServiceConstants;
 import com.amazonaws.sample.cognito.util.Constants;
 import com.amazonaws.services.cognitoidentity.AmazonCognitoIdentity;
 import com.amazonaws.services.cognitoidentity.AmazonCognitoIdentityClientBuilder;
@@ -134,10 +121,10 @@ public class CognitoUser {
      * @param username    User name for the sign up
      * @param password    Password for the sign up
      * @param email       email used to sign up
-     * @param phonenumber phone number to sign up.
+     * @param iataCode phone number to sign up.
      * @return whether the call was successful or not.
      */
-    public boolean SignUpUser(String username, String password, String email, String phonenumber) {
+    public boolean SignUpUser(String username, String password, String email, String iataCode) {
 
         AnonymousAWSCredentials awsCreds = new AnonymousAWSCredentials();
         AWSCognitoIdentityProvider cognitoIdentityProvider = AWSCognitoIdentityProviderClientBuilder
@@ -155,8 +142,8 @@ public class CognitoUser {
         List<AttributeType> list = new ArrayList<>();
 
         AttributeType attributeType = new AttributeType();
-        attributeType.setName("phone_number");
-        attributeType.setValue(phonenumber);
+        attributeType.setName("iatacode");
+        attributeType.setValue(iataCode);
         list.add(attributeType);
 
         AttributeType attributeType1 = new AttributeType();

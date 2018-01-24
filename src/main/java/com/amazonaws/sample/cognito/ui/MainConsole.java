@@ -20,7 +20,7 @@ package com.amazonaws.sample.cognito.ui;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicSessionCredentials;
 import com.amazonaws.sample.cognito.service.CognitoUser;
-import com.amazonaws.sample.cognito.service.CognitoJWTParser;
+import com.amazonaws.sample.cognito.util.CognitoJWTParser;
 import com.amazonaws.services.cognitoidentity.model.Credentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
@@ -81,10 +81,10 @@ public class MainConsole {
         System.out.println("Please enter an email: ");
         String email = scanner.nextLine();
 
-        System.out.println("Please enter a phone number (+11234567890): ");
-        String phonenumber = scanner.nextLine();
+        System.out.println("Please enter a Iata Code: ie MAD ");
+        String iataCode = scanner.nextLine();
 
-        boolean success = helper.SignUpUser(username, password, email, phonenumber);
+        boolean success = helper.SignUpUser(username, password, email, iataCode);
 
         if (success) {
             System.out.println("User added.");

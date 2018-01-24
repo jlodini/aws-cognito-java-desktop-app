@@ -1,4 +1,4 @@
-package com.amazonaws.sample.cognito.ui;
+package com.amazonaws.sample.cognito.util;
 
 import com.amazonaws.sample.cognito.service.CognitoUser;
 import javafx.geometry.Insets;

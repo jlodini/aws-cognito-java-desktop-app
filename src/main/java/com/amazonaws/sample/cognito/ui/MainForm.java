@@ -1,7 +1,7 @@
 package com.amazonaws.sample.cognito.ui;
 
 import com.amazonaws.sample.cognito.service.CognitoUser;
-import com.amazonaws.sample.cognito.service.CognitoJWTParser;
+import com.amazonaws.sample.cognito.util.CognitoJWTParser;
 import com.amazonaws.services.cognitoidentity.model.Credentials;
 import javafx.application.Application;
 import javafx.event.ActionEvent;

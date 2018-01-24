@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2018 Ryanair Ltd. All rights reserved.
  */
-package com.amazonaws.sample.cognito.service;
+package com.amazonaws.sample.cognito.util;
 
 public final class CognitoServiceConstants {
 

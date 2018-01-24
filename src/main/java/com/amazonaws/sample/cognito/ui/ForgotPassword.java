@@ -1,6 +1,7 @@
 package com.amazonaws.sample.cognito.ui;
 
 import com.amazonaws.sample.cognito.service.CognitoUser;
+import com.amazonaws.sample.cognito.util.ResetPassword;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
