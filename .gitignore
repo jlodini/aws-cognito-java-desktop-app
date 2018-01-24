@@ -36,6 +36,8 @@ cmake-build-debug/
 out/
 *.iml
 
+**/target
+
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
@@ -102,4 +104,4 @@ Temporary Items
 .apdisk
 
 /.idea/
-!/target/
+/target/
