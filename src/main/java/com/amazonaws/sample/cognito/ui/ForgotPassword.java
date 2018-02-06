@@ -75,7 +75,7 @@ public class ForgotPassword {
             System.out.println(txtusername.getText());
             helper.ResetPassword(txtusername.getText());
 
-            boolean answer = ResetPassword.display("re:Invent 2017 - Cognito Workshop", "Reset Password", txtusername.getText());
+            boolean answer = ResetPassword.display("Cognito POC", "Reset Password", txtusername.getText());
 
             if (answer) {
                 System.out.println("Password reset successful");
@@ -91,7 +91,7 @@ public class ForgotPassword {
         });
 
         codeButton.setOnAction(e -> {
-            boolean answer = ResetPassword.display("re:Invent 2017 - Cognito Workshop", "Reset Password", txtusername.getText());
+            boolean answer = ResetPassword.display("Cognito POC", "Reset Password", txtusername.getText());
 
             if (answer) {
                 System.out.println("Password reset successful");

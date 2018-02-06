@@ -18,6 +18,7 @@ import com.amazonaws.services.cognitoidentity.model.GetIdRequest;
 import com.amazonaws.services.cognitoidentity.model.GetIdResult;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder;
+import com.amazonaws.services.cognitoidp.model.AdminConfirmSignUpRequest;
 import com.amazonaws.services.cognitoidp.model.AttributeType;
 import com.amazonaws.services.cognitoidp.model.AuthFlowType;
 import com.amazonaws.services.cognitoidp.model.ChallengeNameType;
@@ -142,7 +143,7 @@ public class CognitoUser {
         List<AttributeType> list = new ArrayList<>();
 
         AttributeType attributeType = new AttributeType();
-        attributeType.setName("iatacode");
+        attributeType.setName("custom:iatacode");
         attributeType.setValue(iataCode);
         list.add(attributeType);
 
@@ -177,6 +178,10 @@ public class CognitoUser {
                 .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
                 .withRegion(Regions.fromName(region))
                 .build();
+
+//        AdminConfirmSignUpRequest adminConfirmSignUpRequest = new AdminConfirmSignUpRequest();
+//        adminConfirmSignUpRequest.setUsername(username);
+//        adminConfirmSignUpRequest.setUserPoolId(poolId);
 
         ConfirmSignUpRequest confirmSignUpRequest = new ConfirmSignUpRequest();
         confirmSignUpRequest.setUsername(username);
