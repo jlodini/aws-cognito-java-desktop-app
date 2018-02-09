@@ -92,6 +92,8 @@ public class MainConsole {
 
             String code = scanner.nextLine();
             helper.VerifyAccessCode(username, code);
+//            helper.VerifyUser(username);
+
             System.out.println("User verification succeeded.");
         } else {
             System.out.println("User creation failed.");

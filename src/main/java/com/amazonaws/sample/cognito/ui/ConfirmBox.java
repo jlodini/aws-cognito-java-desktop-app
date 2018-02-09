@@ -99,7 +99,7 @@ public class ConfirmBox {
 
             if (success) {
                 System.out.println("Enter your validation code from email");
-                ConfirmUser.display("re:Invent 2017 - Cognito Workshop", "Confirm User", Username.getText());
+                ConfirmUser.display("Cognito POC", "Confirm User", Username.getText());
             } else {
                 System.out.println("User creation failed");
                 usercreation_message.setText("User creation failed");

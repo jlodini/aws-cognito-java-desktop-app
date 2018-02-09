@@ -64,6 +64,8 @@ public class ConfirmUser {
         signUpButton.setOnAction(e -> {
             boolean success = helper.VerifyAccessCode(username, otpcode.getText());
 
+//            boolean success = helper.VerifyUser(username);
+
             if (success) {
                 System.out.println("OTP validation is successful");
                 otp_message.setText("OTP validation is successful");

@@ -3,6 +3,7 @@ package com.amazonaws.sample.cognito.service;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.AnonymousAWSCredentials;
 import com.amazonaws.auth.BasicSessionCredentials;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.sample.cognito.util.AuthHttpClient;
 import com.amazonaws.sample.cognito.util.AuthenticationHelper;
@@ -19,6 +20,7 @@ import com.amazonaws.services.cognitoidentity.model.GetIdResult;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder;
 import com.amazonaws.services.cognitoidp.model.AdminConfirmSignUpRequest;
+import com.amazonaws.services.cognitoidp.model.AdminConfirmSignUpResult;
 import com.amazonaws.services.cognitoidp.model.AttributeType;
 import com.amazonaws.services.cognitoidp.model.AuthFlowType;
 import com.amazonaws.services.cognitoidp.model.ChallengeNameType;
@@ -156,6 +158,9 @@ public class CognitoUser {
 
         try {
             SignUpResult result = cognitoIdentityProvider.signUp(signUpRequest);
+
+//            VerifyUser(username);
+
             System.out.println(result);
         } catch (Exception e) {
             System.out.println(e);
@@ -179,10 +184,6 @@ public class CognitoUser {
                 .withRegion(Regions.fromName(region))
                 .build();
 
-//        AdminConfirmSignUpRequest adminConfirmSignUpRequest = new AdminConfirmSignUpRequest();
-//        adminConfirmSignUpRequest.setUsername(username);
-//        adminConfirmSignUpRequest.setUserPoolId(poolId);
-
         ConfirmSignUpRequest confirmSignUpRequest = new ConfirmSignUpRequest();
         confirmSignUpRequest.setUsername(username);
         confirmSignUpRequest.setConfirmationCode(code);
@@ -195,6 +196,39 @@ public class CognitoUser {
 
         try {
             ConfirmSignUpResult confirmSignUpResult = cognitoIdentityProvider.confirmSignUp(confirmSignUpRequest);
+            System.out.println("confirmSignupResult=" + confirmSignUpResult.toString());
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Verify the verification code sent on the user phone.
+     *
+     * @param username User for which we are submitting the verification code.
+     *
+     * @return if the verification is successful.
+     */
+    public boolean VerifyUser(String username) {
+        AWSCognitoIdentityProvider cognitoIdentityProvider = AWSCognitoIdentityProviderClientBuilder
+                .standard()
+                .withCredentials(new DefaultAWSCredentialsProviderChain())
+                .withRegion(Regions.fromName(region))
+                .build();
+
+        AdminConfirmSignUpRequest adminConfirmSignUpRequest = new AdminConfirmSignUpRequest();
+        adminConfirmSignUpRequest.setUsername(username);
+        adminConfirmSignUpRequest.setUserPoolId(poolId);
+
+
+        System.out.println("username=" + username);
+        System.out.println("clientid=" + clientAppId);
+
+        try {
+            AdminConfirmSignUpResult confirmSignUpResult =
+                    cognitoIdentityProvider.adminConfirmSignUp(adminConfirmSignUpRequest);
             System.out.println("confirmSignupResult=" + confirmSignUpResult.toString());
         } catch (Exception ex) {
             System.out.println(ex);
